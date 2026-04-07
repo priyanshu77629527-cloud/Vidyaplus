@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vidya Plus | Premium Learning Portal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00d2ff; /* High-tech Cyan */
+            --secondary: #3a7bd5; /* Tech Blue */
+            --dark: #020617; /* Very Dark Blue-Black */
+            --card-bg: rgba(255,255,255,0.05); /* Subtle Translucent */
+            --nav-bg: rgba(2, 6, 23, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--dark); color: white; overflow-x: hidden; }
+
+        /* Navigation Bar */
+        nav { background: var(--nav-bg); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); backdrop-filter: blur(10px); }
+        .logo-container { display: flex; align-items: center; cursor: pointer; }
+        .logo-img { width: 40px; height: 40px; margin-right: 10px; border-radius: 50%; border: 1px solid var(--primary); }
+        .logo-text { font-family: 'Orbitron', sans-serif; font-size: 24px; color: var(--primary); text-shadow: 0 0 15px var(--primary); }
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Sidebar Side-Menu Button from Image_0.png */
+        .sidebar-btn { 
+            position: absolute; top: 20px; left: -10px; /* Adjust left to peek out */
+            background-color: white; color: #ff007c; /* Match image_0.png */
+            padding: 10px 15px; border-radius: 0 10px 10px 0;
+            font-size: 1.2rem; cursor: pointer; z-index: 900;
+            transition: 0.3s; transform: rotate(-90deg); /* Rotate to match image */
+            box-shadow: 5px 0 10px rgba(0,0,0,0.2);
+        }
+        .sidebar-btn:hover { left: 0px; transform: rotate(0deg); } /* Slide out on hover */
+
+        /* Main Page Grid */
+        .page { display: none; padding: 40px 5%; animation: fadeIn 0.5s ease; }
+        .active { display: block; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+
+        /* Cards and Buttons */
+        .card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; text-align: center; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(0,210,255,0.2); }
+        .btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; transition: 0.3s; margin: 5px; }
+        .btn-primary { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: var(--dark); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+
+        /* Login Forms */
+        .login-box { max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid var(--primary); }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: rgba(255,255,255,0.1); border: 1px solid #444; color: white; border-radius: 5px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo-container" onclick="showPage('home')">
+        <img src="YOUR_LOGO_LINK_HERE" alt="V" class="logo-img"> <div class="logo-text">VIDYA PLUS</div>
+    </div>
+    <div class="nav-links">
+        <a href="javascript:void(0)" onclick="showPage('home')">Home</a>
+        <a href="javascript:void(0)" onclick="showPage('test')">Online Test</a>
+        <a href="javascript:void(0)" onclick="showPage('profile')" id="profileLink" style="display:none;">Profile</a>
+        <a href="javascript:void(0)" onclick="showPage('admin')" id="adminLink" style="display:none; color: #ff007c;">Admin</a>
+        <a href="javascript:void(0)" onclick="showPage('login')" class="btn-outline" id="loginBtnNav" style="padding: 5px 15px;">Login</a>
+        <button onclick="logout()" class="btn-outline" id="logoutBtn" style="display:none; padding: 5px 15px;">Logout</button>
+    </div>
+</nav>
+
+<div class="sidebar-btn" onclick="toggleSidebar()"><</div>
+
+<div id="home" class="page active">
+    <h1 style="text-align: center; font-size: 3rem; margin-bottom: 30px;">Elevate Your Learning</h1>
+    <p style="text-align: center;">Bihar Board & B.Sc. Nursing Preparation</p>
+    <div class="card-grid">
+        <div class="card">
+            <h3>Bihar Board (10th & 12th)</h3>
+            <button class="btn btn-primary">Open Materials</button>
+        </div>
+        <div class="card">
+            <h3>Nursing / BCECE Target</h3>
+            <button class="btn btn-primary">Join Batch</button>
+        </div>
+    </div>
+</div>
+
+<div id="login" class="page">
+    <div class="login-box">
+        <h2 id="loginTitle">Login</h2>
+        <input type="text" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+        <button class="btn btn-primary" style="width: 100%;" id="mainLoginBtn" onclick="handleAuth()">Submit</button>
+        <p style="text-align: center; margin-top: 15px; color: #888;">
+            <a href="javascript:void(0)" onclick="toggleRegister()" id="registerLink">New Student? Register Here</a>
+        </p>
+    </div>
+</div>
+
+<div id="profile" class="page">
+    <div class="card" style="max-width: 500px; margin: auto;">
+        <h2>My Profile</h2>
+        <p>Email: <span id="studentEmail">student@vidyaplus.com</span></p>
+        <p>Course: B.Sc. Nursing Batch 2026</p>
+    </div>
+</div>
+
+<div id="admin" class="page">
+    <h2 style="color: #ff007c;">Admin Dashboard</h2>
+    <p>एडमिन कंट्रोल पैनल - केवल प्रमाणित एडमिन के लिए</p>
+    <div class="card">
+        <h3>Change Class Link</h3>
+        <input type="text" id="courseLinkAdmin" placeholder="Enter New YouTube Link">
+        <button class="btn btn-primary" onclick="alert('Update Feature Comming Soon!')">Update Site</button>
+    </div>
+</div>
+
+<div id="test" class="page">
+    <h2>Mock Test Series</h2>
+    <div class="card">
+        <h3>Biology Test 1</h3>
+        <button class="btn btn-outline">Start</button>
+    </div>
+</div>
+
+<div id="sideMenuContent" style="display:none;">
+    <ul>
+        <li><a href="#" style="color:#ff007c;">Courses</a></li>
+        <li><a href="#" style="color:#ff007c;">Free Tests</a></li>
+        <li><a href="#" style="color:#ff007c;">Home</a></li>
+        <li><a href="#" style="color:#ff007c;">About Us</a></li>
+        <li><a href="#" style="color:#ff007c;">Contact Us</a></li>
+    </ul>
+</div>
+
+<script>
+    let isRegistering = false;
+    // PLACEHOLDER: Define your Admin Email here
+    const ADMIN_EMAIL = "your_admin_email@example.com"; 
+
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    function toggleRegister() {
+        isRegistering = !isRegistering;
+        const title = document.getElementById('loginTitle');
+        const link = document.getElementById('registerLink');
+        if (isRegistering) {
+            title.innerText = "New Student Registration";
+            link.innerText = "Already a student? Login";
+        } else {
+            title.innerText = "Login";
+            link.innerText = "New Student? Register Here";
+        }
+    }
+
+    function handleAuth() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // --- Firebase Integration Step 2 Placeholder ---
+        // I will replace this with real Firebase code later.
+        
+        if (!email || !password) {
+            alert("Please fill all fields."); return;
+        }
+
+        if (email === ADMIN_EMAIL) {
+            // Simulated Admin Login
+            document.getElementById('adminLink').style.display = 'inline-block';
+            showPage('admin');
+        } else {
+            // Simulated Student Login
+            document.getElementById('profileLink').style.display = 'inline-block';
+            document.getElementById('studentEmail').innerText = email;
+            showPage('profile');
+        }
+
+        document.getElementById('loginBtnNav').style.display = 'none';
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        alert("Success!");
+    }
+
+    function logout() {
+        location.reload(); // Simple simulation: refresh the page
+    }
+
+    function toggleSidebar() {
+        // Toggle the visibility of the side menu content
+        const sideMenu = document.getElementById('sideMenuContent');
+        if (sideMenu.style.display === 'none') {
+            sideMenu.style.display = 'block';
+            sideMenu.style.position = 'fixed';
+            sideMenu.style.top = '0';
+            sideMenu.style.left = '0';
+            sideMenu.style.width = '250px'; // Width of your menu
+            sideMenu.style.height = '100%';
+            sideMenu.style.backgroundColor = 'white';
+            sideMenu.style.zIndex = '950';
+            sideMenu.style.padding = '50px 20px';
+            sideMenu.style.boxShadow = '5px 0 10px rgba(0,0,0,0.2)';
+            
+            // Apply Red Text from image_0.png
+            const links = sideMenu.querySelectorAll('a');
+            links.forEach(link => {
+                link.style.display = 'block';
+                link.style.padding = '15px 0';
+                link.style.textDecoration = 'none';
+                link.style.borderBottom = '1px solid #eee';
+            });
+        } else {
+            sideMenu.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
